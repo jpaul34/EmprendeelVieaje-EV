@@ -1,6 +1,5 @@
 package com.ev.jonathan.emprendeelvieajeev;
 
-
 import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;

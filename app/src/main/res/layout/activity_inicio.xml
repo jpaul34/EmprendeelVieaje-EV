@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ev.jonathan.emprendeelvieajeev.Inicio">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Bienvenido a Emprende el Viaje \n es hora de comenzar tu propio viaje"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"
+        android:textStyle="italic" />
+
+</LinearLayout>
