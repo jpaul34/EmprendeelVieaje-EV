@@ -18,7 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-    private static String ip = "http://emprendeelviaje.cu.ma/archivosphp/Login_GETID.php?correo=";
+    private static String ip = "http://www.hosttest.byethost8.com/archivosphp/Login_GETID.php?correo=";
     TextView tv_registro;
     Button btn_ingresar;
     EditText et_correo;
