@@ -94,7 +94,7 @@ public class Login extends AppCompatActivity {
                     Intent intentInicio = new Intent(Login.this, Inicio.class);
                     Login.this.startActivity(intentInicio);
                 } else {
-                    Toast.makeText(this, "Contraseña incorrecta verifique su correo y contraseña", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Contraseña incorrecta  su correo y contraseña", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
