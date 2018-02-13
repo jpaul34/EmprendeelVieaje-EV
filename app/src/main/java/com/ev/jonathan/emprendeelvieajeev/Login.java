@@ -18,7 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-    private static String ip = "http://www.hosttest.byethost8.com/archivosphp/Login_GETID.php?correo=";
+    //private static String ip = "http://emprendeelviaje.cu.ma/archivosphp/Login_GETID.php?correo=";
+    private static String ip = "http://emprendeelviaje.cu.ma/archivosphp/Login_GETID.php?correo=";
     TextView tv_registro;
     Button btn_ingresar;
     EditText et_correo;
@@ -91,7 +92,7 @@ public class Login extends AppCompatActivity {
                 String password = datosLogin.getString("password");
                 if (correo.equals(correoUsuario) && password.equals(passwordUsuario)) {
                     Toast.makeText(this, "Usuario y contraseña correctos", Toast.LENGTH_SHORT).show();
-                    Intent intentInicio = new Intent(Login.this, Inicio.class);
+                    Intent intentInicio = new Intent(Login.this, Ubicacion.class);
                     Login.this.startActivity(intentInicio);
                 } else {
                     Toast.makeText(this, "Contraserrecta  su correo y contraseña", Toast.LENGTH_SHORT).show();

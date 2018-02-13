@@ -3,6 +3,7 @@
     package="com.ev.jonathan.emprendeelvieajeev">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Signup" />
-        <activity android:name=".Inicio"></activity>
+        <activity android:name=".Inicio" />
+        <activity android:name=".Ubicacion"></activity>
     </application>
 
 </manifest>
