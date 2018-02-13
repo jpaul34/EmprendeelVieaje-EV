@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Emprende el Vieaje (EV)</string>
+    <string name="title_activity_mapa">Map</string>
 </resources>

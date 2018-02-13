@@ -92,8 +92,8 @@ public class Login extends AppCompatActivity {
                 String password = datosLogin.getString("password");
                 if (correo.equals(correoUsuario) && password.equals(passwordUsuario)) {
                     Toast.makeText(this, "Usuario y contraseña correctos", Toast.LENGTH_SHORT).show();
-                    Intent intentInicio = new Intent(Login.this, Ubicacion.class);
-                    Login.this.startActivity(intentInicio);
+                    //Intent intentInicio = new Intent(Login.this, Ubicacion.class);
+                    //Login.this.startActivity(intentInicio);
                 } else {
                     Toast.makeText(this, "Contraserrecta  su correo y contraseña", Toast.LENGTH_SHORT).show();
                 }
