@@ -37,7 +37,8 @@
             android:name=".Mapa"
             android:label="@string/title_activity_mapa" />
         <activity android:name=".InformacionPersonal" />
-        <activity android:name=".AcercaDe"></activity>
+        <activity android:name=".AcercaDe" />
+        <activity android:name=".LugarTuristico"></activity>
     </application>
 
 </manifest>
