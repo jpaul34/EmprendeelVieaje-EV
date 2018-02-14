@@ -1,5 +1,6 @@
 package com.ev.jonathan.emprendeelvieajeev;
 
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationProvider;
@@ -8,33 +9,42 @@ import android.util.Log;
 import android.widget.TextView;
 
 public class Localizacion implements LocationListener {
-    Ubicacion ubicacion;
+    Mapa ubicacion;
+    // Ubicacion ubication;
     TextView mensaje1;
     TextView mensaje2;
+    String direccion = "";
 
-    public Localizacion(TextView mensaje1, TextView mensaje2) {
-        this.mensaje1 = mensaje1;
-        this.mensaje2 = mensaje2;
+    public Localizacion(TextView mensaje1, TextView mensaje2){
+        this.mensaje1=mensaje1;
+        this.mensaje2=mensaje2;
     }
 
-    public Ubicacion getMainActivity() {
+    public Localizacion(String Direccion){
+        this.direccion=direccion;
+    }
+
+    public Mapa getMainActivity() {
         return ubicacion;
     }
 
-    public void setLocalizacion(Ubicacion ubicacion) {
+    public void setLocalizacion(Mapa ubicacion) {
         this.ubicacion = ubicacion;
     }
+
+
+    //public void setLocalizacion(Ubicacion ubicacion) { this.ubication = ubicacion;    }
 
     @Override
     public void onLocationChanged(Location loc) {
         // Este metodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
         // debido a la deteccion de un cambio de ubicacion
-
         loc.getLatitude();
         loc.getLongitude();
 
-        String Text = "Mi ubicacion actual es: " + "\n Lat = " + loc.getLatitude() + "\n Long = " + loc.getLongitude();
+        String Text = "Mi ubicacion actual es: " + "\n Lat = "+ loc.getLatitude() + "\n Long = " + loc.getLongitude();
         mensaje1.setText(Text);
+
         //Llmanada al metodo para obtener la direccion
         this.ubicacion.setLocation(loc);
     }
