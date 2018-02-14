@@ -235,5 +235,6 @@ public class LugarTuristico extends AppCompatActivity {
 
         setLocation(location);
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,locationListener);
+
     }
 }
