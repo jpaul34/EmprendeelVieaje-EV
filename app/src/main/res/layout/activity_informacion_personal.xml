@@ -1,192 +1,309 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ev.jonathan.emprendeelvieajeev.InformacionPersonal">
+    tools:context="com.ev.jonathan.emprendeelviajebeta.InformacionPersonal">
 
     <TextView
         android:id="@+id/tv_informacionPersonal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="39dp"
         android:gravity="center"
         android:text="Informacion Personal"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="18sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="152dp"
         tools:layout_editor_absoluteY="4dp" />
 
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/linerlayout_info"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
 
-        <TextView
-            android:id="@+id/tv_informacionPersonal_nom"
-            android:layout_width="wrap_content"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Primer nombre: "
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-        <TextView
-            android:id="@+id/tv_informacionPersonal_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
+            android:orientation="horizontal"
+            tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
 
+            <TextView
+                android:id="@+id/tv_informacionPersonal_nom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Primer nombre: "
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+
+            <TextView
+                android:id="@+id/tv_informacionPersonal_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
+
+            <TextView
+                android:id="@+id/tv_informacionPersonal_apell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Primer apellido: "
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+
+            <TextView
+                android:id="@+id/tv_informacionPersonal_apellido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
+
+            <TextView
+                android:id="@+id/tv_informacionPersonal_corr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Correo: "
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+            <TextView
+                android:id="@+id/tv_informacionPersonal_correo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
+
+            <TextView
+                android:id="@+id/tv_informacionPersonal_contra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contraseña: "
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+            <TextView
+                android:id="@+id/tv_informacionPersonal_contraseña"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
+
+            <TextView
+                android:id="@+id/tv_informacionPersonal_fechanac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de nacimiento: "
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+            <TextView
+                android:id="@+id/tv_informacionPersonal_fecha_nacimiento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
+
+            <TextView
+                android:id="@+id/tv_informacionPersonal_pai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pais: "
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+            <TextView
+                android:id="@+id/tv_informacionPersonal_pais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
+
+            <TextView
+                android:id="@+id/tv_informacionPersonal_ciud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ciudad: "
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+            <TextView
+                android:id="@+id/tv_informacionPersonal_ciudad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                tools:layout_editor_absoluteX="152dp"
+                tools:layout_editor_absoluteY="4dp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <TextView
+        android:id="@+id/tv_btn_actualizardatos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
+        android:layout_height="56dp"
+        android:text="\nActualizar Datos"
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_informacionPersonal_apell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Primer apellido: "
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-        <TextView
-            android:id="@+id/tv_informacionPersonal_apellido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
+        android:id="@+id/linerlayout_actualizar_datos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_informacionPersonal_corr"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linerlayout_nombre"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Correo: "
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-        <TextView
-            android:id="@+id/tv_informacionPersonal_correo"
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_actualizar_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Primer Nobre"
+                android:inputType="textPersonName"
+                android:textAlignment="viewStart"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_actualizar_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Actualizar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linerlayout_apellido"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_actualizar_apellido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Primer Apellido"
+                android:inputType="textPersonName"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_actualizar_apellido"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Actualizar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linerlayout_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linerlayout_contraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_actualizar_contraseña"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_actualizar_contraseña"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Actualizar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linerlayout_pais"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linerlayout_ciudad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
     </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
-
-        <TextView
-            android:id="@+id/tv_informacionPersonal_contra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contraseña: "
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-        <TextView
-            android:id="@+id/tv_informacionPersonal_contraseña"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
-
-        <TextView
-            android:id="@+id/tv_informacionPersonal_fechanac"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fecha de nacimiento: "
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-        <TextView
-            android:id="@+id/tv_informacionPersonal_fecha_nacimiento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
-
-        <TextView
-            android:id="@+id/tv_informacionPersonal_pai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pais: "
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-        <TextView
-            android:id="@+id/tv_informacionPersonal_pais"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-    </LinearLayout>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context="com.ev.jonathan.ev_emprendeelviaje.InformacionPersonal">
-
-        <TextView
-            android:id="@+id/tv_informacionPersonal_ciud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ciudad: "
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-        <TextView
-            android:id="@+id/tv_informacionPersonal_ciudad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            tools:layout_editor_absoluteX="152dp"
-            tools:layout_editor_absoluteY="4dp" />
-    </LinearLayout>
-
 
 </LinearLayout>
