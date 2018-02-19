@@ -20,9 +20,7 @@ import org.json.JSONObject;
 public class Singup extends AppCompatActivity {
 
     private static String ip = "http://emprendeelviaje.cu.ma/archivosphpEV/registrar_Usuario.php";
-
     private Button btn_registrar;
-
     private EditText et_nombre;
     private EditText et_apellido;
     private EditText et_correo;
@@ -30,9 +28,7 @@ public class Singup extends AppCompatActivity {
     private EditText et_fecha;
     private EditText et_pais;
     private EditText et_ciudad;
-
     private  String passwordUsuario;
-
     private RequestQueue mRequest;
     private VolleyRP volley;
 
@@ -40,10 +36,8 @@ public class Singup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_singup);
-
         volley = VolleyRP.getInstance(this);
         mRequest = volley.getRequestQueue();
-
         et_nombre = (EditText) findViewById(R.id.et_regNombre);
         et_apellido = (EditText) findViewById(R.id.et_regApellido);
         et_correo = (EditText) findViewById(R.id.et_regCorreo);
@@ -51,27 +45,19 @@ public class Singup extends AppCompatActivity {
         et_fecha = (EditText) findViewById(R.id.et_regFechaNacimiento);
         et_pais = (EditText) findViewById(R.id.et_regPais);
         et_ciudad = (EditText) findViewById(R.id.et_regCiudad);
-
         btn_registrar = (Button) findViewById(R.id.btn_regRegistrarse);
-
-
-        btn_registrar.setOnClickListener(new View.OnClickListener() {
+       btn_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(Singup.this, "Entro", Toast.LENGTH_SHORT).show();
                 if( !et_nombre.getText().toString().equals("") && !et_apellido.getText().toString().equals("") &&
                         !et_correo.getText().toString().equals("") && !et_password.getText().toString().equals("") &&
                         !et_fecha.getText().toString().equals("")  &&
                         !et_pais.getText().toString().equals("") && !et_ciudad.getText().toString().equals("")){
-                    //Toast.makeText(Singup.this, "Entro ", Toast.LENGTH_SHORT).show();
                     Hash hash = new Hash();
                     passwordUsuario = hash.md5(et_password.getText().toString()+et_correo.getText().toString());
                     String salt = hash.md5(passwordUsuario.substring((passwordUsuario.length()/2), passwordUsuario.length()));
                     passwordUsuario = hash.sha1(passwordUsuario+salt);
-                    //Toast.makeText(Singup.this, "salio del HAsh", Toast.LENGTH_SHORT).show();
-                    //et_correo.setText(passwordUsuario);
-                    //Toast.makeText(Login.this, "Contraseña: "+et_password.getText().toString()+"\n"+passwordUsuario, Toast.LENGTH_SHORT).show();
-                    verificarDatos( et_nombre.getText().toString(), et_apellido.getText().toString(),
+                                        verificarDatos( et_nombre.getText().toString(), et_apellido.getText().toString(),
                             et_correo.getText().toString(), passwordUsuario, et_fecha.getText().toString(),
                             et_pais.getText().toString(), et_ciudad.getText().toString());
                 }else {
