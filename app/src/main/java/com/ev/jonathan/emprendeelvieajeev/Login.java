@@ -1,5 +1,6 @@
 package com.ev.jonathan.emprendeelvieajeev;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-
+    //private static String ip = "http://emprendeelviaje.cu.ma/archivosphp/Login_GETID.php?correo=";
+    //private static String ip = "www.hosttest.byethost8.com/archivosphp/Login_GETID.php?correo=";
+    //private static String ip = "http://emprendeelviaje.mipropia.com/archivosphp/Login_GETID.php?correo=";
     private static String ip = "http://emprendeelviaje.cu.ma/archivosphpEV/usuario_GETCORREO.php?correo=";
 
     TextView tv_registro;
@@ -39,7 +42,6 @@ public class Login extends AppCompatActivity {
         mRequest = volley.getRequestQueue();
 
         tv_registro = (TextView) findViewById(R.id.tv_btnRegistrar);
-
         et_correo = (EditText) findViewById(R.id.et_loginCorreo);
         et_password = (EditText) findViewById(R.id.et_loginContrañse);
 
@@ -59,14 +61,21 @@ public class Login extends AppCompatActivity {
                     //et_correo.setText(passwordUsuario);
                     //Toast.makeText(Login.this, "Contraseña: "+et_password.getText().toString()+"\n"+passwordUsuario, Toast.LENGTH_SHORT).show();
                     verificarLogin(et_correo.getText().toString().toLowerCase(), passwordUsuario);
-
                 }else {
                     Toast.makeText(Login.this, "Ingrese la Contraseña", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        tv_registro = (TextView) findViewById(R.id.tv_btnRegistrar);
 
+        tv_registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentRegistro = new Intent(Login.this, Singup.class);
+                Login.this.startActivity(intentRegistro);
+            }
+        });
 
     }
 
@@ -76,7 +85,7 @@ public class Login extends AppCompatActivity {
         // Toast.makeText(this,"El correo es:"+correoUsuario+" y la Contraseña es:" +passwordUsuario,Toast.LENGTH_SHORT).show();
         solicitudJASON(ip + correo);
     }
-
+    //Capturar datos del JSon
     public void solicitudJASON(String URL) {
         final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -94,9 +103,9 @@ public class Login extends AppCompatActivity {
         VolleyRP.addToQueue(solicitud, mRequest, this, volley);
     }
 
+    //Verifica datos capturados
     public void verificarDatosLogin(JSONObject datosSolicitud) {
         //Toast.makeText(Login.this, "Los datos son:"+datosSolicitud.toString(), Toast.LENGTH_SHORT).show();
-
         try {
             String resultado = datosSolicitud.getString("resultado");
             if (resultado.equals("CC")) {
@@ -121,4 +130,3 @@ public class Login extends AppCompatActivity {
         }
     }
 }
-
