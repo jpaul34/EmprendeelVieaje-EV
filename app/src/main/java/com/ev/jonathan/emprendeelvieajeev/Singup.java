@@ -72,24 +72,20 @@ public class Singup extends AppCompatActivity {
             verificarRegistro(nombreUser, apellidoUser, correoUser, passwordUser, fechaNacimientoUser, paisUser, ciudadUsr);
         }
     }
-    // ?nombre=a&apellido=b&correo=c&password=123&fecha=1995-03-29&pais=ecua&ciudad=quito
 
     public void verificarRegistro(String nombreUser, String apellidoUser, String correoUser, String passwordUser, String fechaNacimientoUser, String paisUser, String ciudadUsr) {
         String consulta="";
         consulta="?nombre="+nombreUser+"&apellido="+apellidoUser+"&correo="+correoUser+"&password="+passwordUser+
                 "&fecha="+fechaNacimientoUser+"&pais="+paisUser+"&ciudad="+ciudadUsr;
-        //Toast.makeText(Singup.this, ip + consulta, Toast.LENGTH_SHORT).show();
 
         solicitudJASON(ip + consulta);
     }
 
-    //Capturar datos del JSon
     public void solicitudJASON(String URL) {
 
         final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datosSolicitud) {
-                //Toast.makeText(Singup.this, "Entro "+URL, Toast.LENGTH_SHORT).show();
                 try {
                     verificarRegistro(datosSolicitud);
                 } catch (JSONException e) {
