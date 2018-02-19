@@ -6,106 +6,45 @@
     android:orientation="vertical"
     tools:context="com.ev.jonathan.emprendeelvieajeev.LugarTuristico">
 
-    <TextView
-        android:id="@+id/tv_lugarturistico_titulo"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Lugar turistico"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context="com.ev.jonathan.ev_emprendeelviaje.LugarTuristico">
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:context="com.ev.jonathan.ev_emprendeelviaje.LugarTuristico">
+            android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/tv_lugarturistico_nomb"
+                android:id="@+id/tv_lugarturistico_titulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre: "
+                android:gravity="center"
+                android:text="Lugar turistico"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="140dp"
-                tools:layout_editor_absoluteY="16dp"
-                tools:ignore="MissingConstraints" />
+                tools:layout_editor_absoluteY="16dp" />
 
             <TextView
-                android:id="@+id/tv_lugarturistico_nombre"
+                android:id="@+id/tv_mensaje"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
-                tools:layout_editor_absoluteX="140dp"
-                tools:layout_editor_absoluteY="16dp"
-                tools:ignore="MissingConstraints" />
+                android:textAlignment="center"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/tv_texto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="textStart"
+                android:textColor="@android:color/background_dark"
+                android:textStyle="italic" />
 
         </LinearLayout>
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:context="com.ev.jonathan.ev_emprendeelviaje.LugarTuristico">
-
-            <TextView
-                android:id="@+id/tv_lugarturistico_tipo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tipo: "
-                tools:layout_editor_absoluteX="140dp"
-                tools:layout_editor_absoluteY="16dp"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/tv_lugarturistico_tipo_lugar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="tipo"
-                tools:layout_editor_absoluteX="140dp"
-                tools:layout_editor_absoluteY="16dp"
-                tools:ignore="MissingConstraints" />
-
-        </LinearLayout>
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:context="com.ev.jonathan.ev_emprendeelviaje.LugarTuristico">
-
-            <TextView
-                android:id="@+id/tv_lugarturistico_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Información: "
-                tools:layout_editor_absoluteX="140dp"
-                tools:layout_editor_absoluteY="16dp"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/tv_lugarturistico_informacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Informcion XXXXXXXXXXXX"
-                tools:layout_editor_absoluteX="140dp"
-                tools:layout_editor_absoluteY="16dp"
-                tools:ignore="MissingConstraints" />
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

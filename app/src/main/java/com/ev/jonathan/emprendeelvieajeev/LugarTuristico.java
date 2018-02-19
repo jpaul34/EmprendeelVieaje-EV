@@ -2,6 +2,7 @@ package com.ev.jonathan.emprendeelvieajeev;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -9,9 +10,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.text.Html;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,176 +32,81 @@ import java.util.Locale;
 
 public class LugarTuristico extends AppCompatActivity {
 
-    private static String ipLugar = "http://emprendeelviaje.cu.ma/archivosphpEV/lugar_GETID.php?id_lugar=";
-    private static String ipTipoLugar = "http://emprendeelviaje.cu.ma/archivosphpEV/tipoLugar_GETID.php?id_tipolugar=";
-    private static String ipConsultaIDlugar = "http://emprendeelviaje.cu.ma/archivosphpEV/lugar_GETID_CIUDADPAIS.php?ciudad=";
+    private static String ipLugares = "http://emprendeelviaje.cu.ma/archivosphpEV/lugares_GETALL_CIUDAD.php?ciudad=";
 
-    private TextView tv_nombre_lugar;
-    private TextView tv_tipo_lugar;
-    private TextView tv_informacion_lugar;
+    private TextView tv_mensaje;
+    private TextView tv_texto;
     private RequestQueue mRequest;
     private VolleyRP volley;
+    private boolean isDato=false;
 
-    private TextView tv_nom;
-    private String direccion="";
-
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lugar_turistico);
+        tv_mensaje = (TextView) findViewById(R.id.tv_mensaje);
 
-        tv_nombre_lugar = (TextView) findViewById(R.id.tv_lugarturistico_nombre);
-        tv_informacion_lugar = (TextView) findViewById(R.id.tv_lugarturistico_informacion);
-        tv_tipo_lugar =  (TextView) findViewById(R.id.tv_lugarturistico_tipo_lugar);
-        tv_nom = (TextView) findViewById(R.id.tv_lugarturistico_nomb);
+        tv_texto = (TextView) findViewById(R.id.tv_texto);
+
         volley = VolleyRP.getInstance(this);
         mRequest = volley.getRequestQueue();
 
-        miUbicacion();
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        String[] parts = direccion.split(",");
-        String dirrec = parts[0];
-        String ciudad_CP = parts[1];
-        String pais = parts[1];
-
-        String[] parts2 = ciudad_CP.split(" ");
-        String ciudad = parts2[1];
-        String codigopostal = parts2[2];
-        solicitudIdLujarJASON(ipConsultaIDlugar+ciudad);
-    }
-
-    public void mostrarLugarTuristico(String id_Lugar){
-        if(!id_Lugar.equals("")){
-            solicitudLujarJASON(ipLugar+id_Lugar);
-
-        }else{
-            tv_nom.setVisibility(View.INVISIBLE);
-            tv_nom.setText("No existe información disponible");
-            tv_nombre_lugar.setVisibility(View.INVISIBLE);
-            TextView tv_info = (TextView) findViewById(R.id.tv_lugarturistico_info);;
-            tv_info.setVisibility(View.INVISIBLE);
-            tv_informacion_lugar.setVisibility(View.INVISIBLE);
-            TextView tv_tipo = (TextView) findViewById(R.id.tv_lugarturistico_tipo);;
-            tv_tipo.setVisibility(View.INVISIBLE);
-            tv_tipo_lugar.setVisibility(View.INVISIBLE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+        }else {
+            comprobarGPS();
         }
     }
 
-    public void solicitudLujarJASON(String URL) {
-        final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject datosSolicitud) {
-                obtenerDatosLugar(datosSolicitud);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1000) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                comprobarGPS();
+                return;
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LugarTuristico.this, "Ocurrio un error, conprueba tu conexion a internet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        String soli = solicitud.toString();
-        //¿Toast.makeText(Login.this,solicitud.getMethod()+" --- "+URL+" --- " +soli, Toast.LENGTH_SHORT).show();
-        VolleyRP.addToQueue(solicitud, mRequest, this, volley);
-    }
-
-    public void obtenerDatosLugar(JSONObject datosSolicitud) {
-        try {
-            String resultado = datosSolicitud.getString("resultado");
-            if (resultado.equals("CC")) {
-                JSONObject datosLugar = new JSONObject(datosSolicitud.getString("datos"));
-
-                String nombre_lugar = datosLugar.getString("NOMBRE_LUGAR");
-                String informacion = datosLugar.getString("INFORMACION");
-                String tipoLugar = datosLugar.getString("ID_TIPOLUGAR");
-                solicitudTipoLujarJASON(ipTipoLugar+tipoLugar);
-
-                tv_nombre_lugar.setText(nombre_lugar);
-                tv_informacion_lugar.setText(informacion);
-
-            } else {
-                Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
-            }
-        } catch (JSONException e) {
         }
     }
 
-    public void solicitudTipoLujarJASON(String URL) {
-        final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject datosSolicitud) {
-                obtenerDatosTipoLugar(datosSolicitud);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LugarTuristico.this, "Ocurrio un error, conprueba tu conexion a internet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        String soli = solicitud.toString();
-        //¿Toast.makeText(Login.this,solicitud.getMethod()+" --- "+URL+" --- " +soli, Toast.LENGTH_SHORT).show();
-        VolleyRP.addToQueue(solicitud, mRequest, this, volley);
-    }
-
-    public void obtenerDatosTipoLugar(JSONObject datosSolicitud) {
-        try {
-            String resultado = datosSolicitud.getString("resultado");
-            if (resultado.equals("CC")) {
-                JSONObject datosLugar = new JSONObject(datosSolicitud.getString("datos"));
-                String tipoLugar = datosLugar.getString("TIPO");
-
-                tv_tipo_lugar.setText(tipoLugar);
-
-            } else {
-                Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
-            }
-        } catch (JSONException e) {
+    public void comprobarGPS(){
+        boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!gpsEnabled) {
+            tv_mensaje.setText("\nGPS APAGADO\n");
+            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(settingsIntent);
+            comprobarGPS();
+        } else {
+            tv_mensaje.setText("\nGPS ENCENDIDO\n");
+            locationStart(locationManager, gpsEnabled);
         }
     }
 
-
-    public void solicitudIdLujarJASON(String URL) {
-        final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject datosSolicitud) {
-                obtenerIdLugar(datosSolicitud);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LugarTuristico.this, "Ocurrio un error, conprueba tu conexion a internet", Toast.LENGTH_SHORT).show();
-            }
-        });
-        String soli = solicitud.toString();
-        //¿Toast.makeText(Login.this,solicitud.getMethod()+" --- "+URL+" --- " +soli, Toast.LENGTH_SHORT).show();
-        VolleyRP.addToQueue(solicitud, mRequest, this, volley);
-
-    }
-
-    public void obtenerIdLugar(JSONObject datosSolicitud) {
-        String id = "";
-        try {
-            String resultado = datosSolicitud.getString("resultado");
-            if (resultado.equals("CC")) {
-                JSONObject datosLugar = new JSONObject(datosSolicitud.getString("datos"));
-                String id_lugarAux = datosLugar.getString("ID_LUGAR");
-                mostrarLugarTuristico(id_lugarAux);
-            } else {
-                Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
-            }
-        } catch (JSONException e) {
+    public void locationStart(LocationManager mlocManager, boolean gpsEnabled) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
+        Localizacion local = new Localizacion(tv_mensaje,2);
+        local.setLugarActivity(LugarTuristico.this);
+        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) local);
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) local);
+        tv_mensaje.setText("");
     }
 
     public void setLocation(Location loc) {
-        //Obtener la direccion de la calle a partir de la latitud y la longitud
-        if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
+        if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0 && !isDato) {
             try {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                 List<Address> list = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
                 if (!list.isEmpty()) {
-                    Address DirCalle = list.get(0);
-                    direccion = DirCalle.getAddressLine(0);
+                    tv_mensaje.setText("");
+                    String city = list.get(0).getLocality();
+                    tv_mensaje.setText(city);
+                    solicitudJASON(ipLugares+city);
+                    isDato=true;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -206,34 +114,49 @@ public class LugarTuristico extends AppCompatActivity {
         }
     }
 
-    LocationListener location_Listener = new LocationListener() {
+    public void solicitudJASON(String URL) {
+        final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject datosSolicitud) {
+                verificarDatosLogin(datosSolicitud);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LugarTuristico.this, "Ocurrio un error, conprueba tu conexion a internet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        String soli = solicitud.toString();
+        VolleyRP.addToQueue(solicitud, mRequest, this, volley);
+    }
 
-        LugarTuristico lugar;
+    public void verificarDatosLogin(JSONObject datosSolicitud) {
+        String salida="";
+        try {
+            String resultado = datosSolicitud.getString("resultado");
+            if (resultado.equals("CC")) {
 
-        public void onLocationChanged(Location location){
-            this.lugar.setLocation(location);
+                JSONArray datosLugar = new JSONArray(datosSolicitud.getString("datos"));
+                int i=0;
+                JSONObject jObject;
+                while(i<datosLugar.length()){
+                    jObject = new JSONObject(datosLugar.getString(i));
+
+                    String nombre_lugar = jObject.getString("NOMBRE_LUGAR");
+                    String informacion = jObject.getString("INFORMACION");
+                    String tipoLugar = jObject.getString("TIPO");
+
+                    Lugar lugar = new Lugar(nombre_lugar, tipoLugar, informacion);
+                    salida+=lugar.toString()+"\n";
+                    i++;
+                }
+                tv_texto.setText(Html.fromHtml(salida));
+            } else {
+                Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
         }
-
-        @Override
-        public void onStatusChanged(String s, int i, Bundle bundle) {
-        }
-        @Override
-        public void onProviderEnabled(String s) {
-        }
-        @Override
-        public void onProviderDisabled(String s) {
-        }
-
-    };
-
-    private void miUbicacion() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-        setLocation(location);
-        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,15000,0,locationListener);
     }
 }
+
+

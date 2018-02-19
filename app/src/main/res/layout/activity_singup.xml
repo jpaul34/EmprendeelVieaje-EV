@@ -11,57 +11,59 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Registro de usuario"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/et_regNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Primer Nombre"
-        android:inputType="text" />
+        android:inputType="textAutoCorrect|textAutoComplete|textPersonName" />
 
     <EditText
         android:id="@+id/et_regApellido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Primer Apellido"
-        android:inputType="text" />
+        android:inputType="textAutoCorrect|textAutoComplete|textPersonName" />
 
     <EditText
         android:id="@+id/et_regCorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Correo"
-        android:inputType="text" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/et_regContraseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contraseña"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        />
 
     <EditText
         android:id="@+id/et_regFechaNacimiento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de nacimiento dd/mm/aaaa"
-        android:inputType="date" />
-
+        android:hint="Fecha de nacimiento AAAA-MM-DD"
+        android:inputType="date"
+        />
 
     <EditText
         android:id="@+id/et_regPais"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="País"
-        android:inputType="text" />
+        android:inputType="textAutoCorrect|textAutoComplete|textPersonName" />
 
     <EditText
         android:id="@+id/et_regCiudad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ciudad"
-        android:inputType="text" />
+        android:inputType="textAutoCorrect|textAutoComplete|textPersonName" />
 
     <Button
         android:id="@+id/btn_regRegistrarse"
@@ -69,7 +71,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Registrarse"
-
         />
 
 </LinearLayout>
