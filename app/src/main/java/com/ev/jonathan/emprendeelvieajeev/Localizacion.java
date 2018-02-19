@@ -26,7 +26,6 @@ public class Localizacion  implements LocationListener {
         return mapaActivity;
     }
 
-
     public void setMapaActivity(Mapa mapaActivity) {
         this.mapaActivity = mapaActivity;
         this.llamada = 1;
@@ -39,7 +38,7 @@ public class Localizacion  implements LocationListener {
 
     @Override
     public void onLocationChanged(Location loc) {
-        // Este mŽtodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
+        // Este metodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
         // debido a la detecci—n de un cambio de ubicacion
         loc.getLatitude();
         loc.getLongitude();
@@ -55,7 +54,7 @@ public class Localizacion  implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
-        // Este mŽtodo se ejecuta cuando el GPS es desactivado
+        // Este metodo se ejecuta cuando el GPS es desactivado
         mensaje1.setText("GPS Desactivado");
     }
 
@@ -68,8 +67,8 @@ public class Localizacion  implements LocationListener {
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // Este mŽtodo se ejecuta cada vez que se detecta un cambio en el
-        // status del proveedor de localizaci—n (GPS)
+        // Este metodo se ejecuta cada vez que se detecta un cambio en el
+        // status del proveedor de localizacion (GPS)
         // Los diferentes Status son:
         // OUT_OF_SERVICE -> Si el proveedor esta fuera de servicio
         // TEMPORARILY_UNAVAILABLE -> Temp˜ralmente no disponible pero se

@@ -34,13 +34,13 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     private double latitud = 0.0;
     private double longitud = 0.0;
 
-    TextView mensaje1;
-    TextView mensaje2;
-    Location localizacion;
+    private TextView mensaje1;
+    private TextView mensaje2;
+    private Location localizacion;
 
     private GoogleMap mMap;
 
-    LocationManager locationManager;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
         }
-
     }
 
     @Override
@@ -91,7 +90,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                 if (!list.isEmpty()) {
                     Address DirCalle = list.get(0);
                     mensaje1.setText("Mi direccion es: \n" + DirCalle.getAddressLine(0));
-                    //direccion = DirCalle.getAddressLine(0);
                     latitud = localizacion.getLatitude();
                     longitud = localizacion.getLongitude();
                     agregarMarcador(latitud, longitud);
@@ -106,7 +104,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 1000) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //esperar(5);
                 comprobarGPS();
                 return;
             }
@@ -135,13 +132,5 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi Posicion Actual"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordenadas));
         mMap.animateCamera(miUbicacion);
-    }
-
-    public void esperar (int segundos) {
-        try {
-            Thread.sleep (segundos*1000);
-        } catch (Exception e) {
-            // Mensaje en caso de que falle
-        }
     }
 }

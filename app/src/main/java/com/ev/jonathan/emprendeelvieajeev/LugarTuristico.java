@@ -27,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,17 +38,9 @@ public class LugarTuristico extends AppCompatActivity {
     private TextView tv_texto;
     private RequestQueue mRequest;
     private VolleyRP volley;
-
-    private TextView tv_nom;
-    private String direccion="";
-
     private boolean isDato=false;
 
-    private ArrayList<Lugar> lugares;
-
-    Location localizacion = null;
-    LocationManager locationManager;
-
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +55,9 @@ public class LugarTuristico extends AppCompatActivity {
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        lugares = new ArrayList<Lugar>();
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Toast.makeText(this, "Entro 1", Toast.LENGTH_SHORT).show();
-
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
         }else {
-            // Toast.makeText(this, "Entro 2", Toast.LENGTH_SHORT).show();
             comprobarGPS();
         }
     }
@@ -80,7 +66,6 @@ public class LugarTuristico extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 1000) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //     Toast.makeText(this, "Entro al onRequestPermision", Toast.LENGTH_SHORT).show();
                 comprobarGPS();
                 return;
             }
@@ -101,10 +86,7 @@ public class LugarTuristico extends AppCompatActivity {
     }
 
     public void locationStart(LocationManager mlocManager, boolean gpsEnabled) {
-        //  Toast.makeText(this, "location star", Toast.LENGTH_SHORT).show();
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
         Localizacion local = new Localizacion(tv_mensaje,2);
@@ -114,39 +96,13 @@ public class LugarTuristico extends AppCompatActivity {
         tv_mensaje.setText("");
     }
 
-
     public void setLocation(Location loc) {
-        //Obtener la direccion de la calle a partir de la latitud y la longitud
         if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0 && !isDato) {
             try {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                 List<Address> list = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
                 if (!list.isEmpty()) {
                     tv_mensaje.setText("");
-                    /*Address DirCalle = list.get(0);
-                    direccion = DirCalle.getAddressLine(0);
-                    tv_mensaje.setText(direccion);
-
-                    String[] parts = direccion.split(",");
-                    String dirrec = parts[0];
-                    final String ciudad_CP = parts[1];
-                    final String pais = parts[1];
-                    tv_mensaje.setText(ciudad_CP);
-                    int pos = ciudad_CP.indexOf(" ");
-
-                    if(pos!=-1){
-                      //  Toast.makeText(this, ciudad_CP+" entro en el if", Toast.LENGTH_SHORT).show();
-                        String[] parts2 = ciudad_CP.split(" ");
-                        String ciudad = parts2[1];
-                        //String codigopostal = parts2[1];
-                        solicitudJASON(ipLugares+ciudad);
-                    }else{
-                      //  Toast.makeText(this, ciudad_CP+" entro en el else", Toast.LENGTH_SHORT).show();
-                        String[] parts2 = ciudad_CP.split(" ");
-                        String ciudad = parts2[1];
-                        String codigopostal = parts2[2];
-                        solicitudJASON(ipLugares+ciudad);
-                    }*/
                     String city = list.get(0).getLocality();
                     tv_mensaje.setText(city);
                     solicitudJASON(ipLugares+city);
@@ -157,7 +113,6 @@ public class LugarTuristico extends AppCompatActivity {
             }
         }
     }
-
 
     public void solicitudJASON(String URL) {
         final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
@@ -172,69 +127,36 @@ public class LugarTuristico extends AppCompatActivity {
             }
         });
         String soli = solicitud.toString();
-        //¿Toast.makeText(Login.this,solicitud.getMethod()+" --- "+URL+" --- " +soli, Toast.LENGTH_SHORT).show();
         VolleyRP.addToQueue(solicitud, mRequest, this, volley);
     }
 
     public void verificarDatosLogin(JSONObject datosSolicitud) {
         String salida="";
-        // tv_texto.setText(salida);
         try {
             String resultado = datosSolicitud.getString("resultado");
-
             if (resultado.equals("CC")) {
 
                 JSONArray datosLugar = new JSONArray(datosSolicitud.getString("datos"));
                 int i=0;
-                // Toast.makeText(this, ""+datosLugar.length()+" "+datosLugar.getString(0) , Toast.LENGTH_SHORT).show();
                 JSONObject jObject;
                 while(i<datosLugar.length()){
-                    //Toast.makeText(this, ""+i , Toast.LENGTH_SHORT).show();
-                    //JSONObject  = datosLugar.getJSONObject(i);
                     jObject = new JSONObject(datosLugar.getString(i));
-                    //Toast.makeText(this, ""+jObject.getString("NOMBRE_LUGAR") , Toast.LENGTH_SHORT).show();
 
                     String nombre_lugar = jObject.getString("NOMBRE_LUGAR");
                     String informacion = jObject.getString("INFORMACION");
                     String tipoLugar = jObject.getString("TIPO");
-                    //salidaAUX2 = nombre_lugar+"\n"+tipoLugar+"\n"+informacion;
 
                     Lugar lugar = new Lugar(nombre_lugar, tipoLugar, informacion);
                     salida+=lugar.toString()+"\n";
                     i++;
                 }
-
                 tv_texto.setText(Html.fromHtml(salida));
-
             } else {
                 Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
         }
-
     }
-
-    public void imprimirLugar(){
-
-    }
-
-    /*public void imprimirLugar(){
-        LinearLayout layout = (LinearLayout) findViewById(R.id.mi_linear_layout);
-
-        LinearLayout contenedor = new LinearLayout(this);
-        contenedor.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-
-        for (int j = 0; j < 100; j++ {
-            Button boton = new Button(this);
-            boton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            boton.setText("mi Botón " + i);
-            boton.setId(i);
-            contenedor.addView(boton);
-        }
-
-        layout.addView(contenedor);
-    }*/
-
 }
 
 

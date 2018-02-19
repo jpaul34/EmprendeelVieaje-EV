@@ -40,12 +40,10 @@ public class Lugar {
         this.tipo = tipo;
     }
 
-    /*****************************************************************/
     @Override
     public String toString() {
         return  "<p align=\"justify\"><br><b>&nbsp;Nombre:</b> " + nombre_lugar +
                 "<br><b>&nbsp;Tipo de Lugar:</b> " + tipo +
                 "<br><b>&nbsp;Informacion:</b> <br>&nbsp;" + informacion +"<br></p>";
     }
-
 }
