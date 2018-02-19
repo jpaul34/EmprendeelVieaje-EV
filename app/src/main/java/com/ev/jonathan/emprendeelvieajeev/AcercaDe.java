@@ -1,7 +1,7 @@
 package com.ev.jonathan.emprendeelvieajeev;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 public class AcercaDe extends AppCompatActivity {
 
