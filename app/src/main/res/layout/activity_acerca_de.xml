@@ -6,6 +6,8 @@
     android:orientation="vertical"
     tools:context="com.ev.jonathan.emprendeelvieajeev.AcercaDe">
 
+
+
     <TextView
         android:id="@+id/tv_acercade_titulo"
         android:layout_width="match_parent"
@@ -20,6 +22,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,6 +30,7 @@
         tools:context="com.ev.jonathan.ev_emprendeelviaje.LugarTuristico">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Escuela Politécnica Nacional\nCopyright 2018 "
+                android:text="Escuela PolitÃ©cnica Nacional\nCopyright 2018 "
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="140dp"
                 tools:layout_editor_absoluteY="16dp" />
