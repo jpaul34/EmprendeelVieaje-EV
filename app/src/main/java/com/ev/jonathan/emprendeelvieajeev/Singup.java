@@ -20,7 +20,6 @@ import org.json.JSONObject;
 public class Singup extends AppCompatActivity {
 
     private static String ip = "http://emprendeelviaje.cu.ma/archivosphpEV/registrar_Usuario.php";
-    //http://emprendeelviaje.cu.ma/archivosphpEV/registrar_Usuario.php?nombre=a&apellido=b&correo=c&password=123&fecha=1995-03-29&pais=ecua&ciudad=quito
 
     private Button btn_registrar;
 
