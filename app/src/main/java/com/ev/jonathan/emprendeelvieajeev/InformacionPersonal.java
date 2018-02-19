@@ -1,8 +1,11 @@
 package com.ev.jonathan.emprendeelvieajeev;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +21,8 @@ import org.json.JSONObject;
 public class InformacionPersonal extends AppCompatActivity {
 
     private static String ipUsuario = "http://emprendeelviaje.cu.ma/archivosphpEV/usuario_GETCORREO.php?correo=";
-    private static String ipUbicacion = "http://emprendeelviaje.cu.ma/archivosphpEV/ubicacion_GETID.php?id_ubicacion=";
+    private static String ipActualizar = "http://emprendeelviaje.cu.ma/archivosphpEV/";
+
     private String correoUsuario;
 
     private TextView tv_informacionPersonal_nombre;
@@ -28,6 +32,19 @@ public class InformacionPersonal extends AppCompatActivity {
     private TextView tv_informacionPersonal_fecha_nacimiento;
     private TextView tv_informacionPersonal_pais;
     private TextView tv_informacionPersonal_ciudad;
+
+    private LinearLayout ll_actualizar_datos;
+    private LinearLayout ll_info;
+    private TextView tv_btn_actualizardatos;
+
+    private EditText et_new_info_nombre;
+    private EditText et_new_info_apellido;
+    private EditText et_new_info_contraseña;
+
+    private Button btn_act_info_nombre;
+    private Button btn_act_info_apellido;
+    private Button btn_act_info_contraseña;
+
 
     private RequestQueue mRequest;
     private VolleyRP volley;
@@ -47,26 +64,82 @@ public class InformacionPersonal extends AppCompatActivity {
         tv_informacionPersonal_pais =  (TextView) findViewById(R.id.tv_informacionPersonal_pais);
         tv_informacionPersonal_ciudad =  (TextView) findViewById(R.id.tv_informacionPersonal_ciudad);
 
+        et_new_info_nombre = (EditText) findViewById(R.id.et_actualizar_nombre);
+        et_new_info_apellido = (EditText) findViewById(R.id.et_actualizar_apellido);
+        et_new_info_contraseña =(EditText) findViewById(R.id.et_actualizar_contraseña);
+        btn_act_info_nombre = (Button) findViewById(R.id.btn_actualizar_nombre);
+        btn_act_info_apellido = (Button) findViewById(R.id.btn_actualizar_apellido);
+        btn_act_info_contraseña = (Button) findViewById(R.id.btn_actualizar_contraseña);
+
+
+
+        ll_info = (LinearLayout) findViewById(R.id.linerlayout_info);
+        ll_info.setVisibility(View.INVISIBLE);
+
+        ll_actualizar_datos = (LinearLayout) findViewById(R.id.linerlayout_actualizar_datos);
+        tv_btn_actualizardatos = (TextView) findViewById(R.id.tv_btn_actualizardatos);
+
+        ll_actualizar_datos.setVisibility(View.INVISIBLE);
+        tv_btn_actualizardatos.setVisibility(View.INVISIBLE);
+
         volley = VolleyRP.getInstance(this);
         mRequest = volley.getRequestQueue();
         mostrarDatosUsuario(ipUsuario+correoUsuario);
+
+        tv_btn_actualizardatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ll_actualizar_datos.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        btn_act_info_nombre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!et_new_info_apellido.getText().toString().equals("")) {
+                    verificarActualizacionDatos(correoUsuario,et_new_info_nombre.getText().toString(), 1);
+                }else {
+                    Toast.makeText(InformacionPersonal.this, "Ingrese un Nombre para continuar", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btn_act_info_apellido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!et_new_info_apellido.getText().toString().equals("")) {
+                    verificarActualizacionDatos(correoUsuario,et_new_info_apellido.getText().toString(), 2);
+                }else {
+                    Toast.makeText(InformacionPersonal.this, "Ingrese un Apellido para continuar", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btn_act_info_contraseña.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!et_new_info_contraseña.getText().toString().equals("")) {
+                    Hash hash = new Hash();
+                    String passwordUsuario = hash.md5(et_new_info_contraseña.getText().toString() + correoUsuario);
+                    String salt = hash.md5(passwordUsuario.substring((passwordUsuario.length() / 2), passwordUsuario.length()));
+                    passwordUsuario = hash.sha1(passwordUsuario + salt);
+                    Toast.makeText(InformacionPersonal.this, "Contraseña: " + passwordUsuario, Toast.LENGTH_SHORT).show();
+
+                    verificarActualizacionDatos(correoUsuario, passwordUsuario, 3);
+                }else {
+                    Toast.makeText(InformacionPersonal.this, "Ingrese una Contraseña para Continuar", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
     public void mostrarDatosUsuario(String ipUsuario){
         if(!correoUsuario.equals("")){
             solicitudJASON(ipUsuario);
-
         }else{
-            /*tv_nom.setVisibility(View.INVISIBLE);
-            tv_nom.setText("No existe información disponible");
-            tv_nombre_lugar.setVisibility(View.INVISIBLE);
-            TextView tv_info = (TextView) findViewById(R.id.tv_lugarturistico_info);;
-            tv_info.setVisibility(View.INVISIBLE);
-            tv_informacion_lugar.setVisibility(View.INVISIBLE);
-            TextView tv_tipo = (TextView) findViewById(R.id.tv_lugarturistico_tipo);;
-            tv_tipo.setVisibility(View.INVISIBLE);
-            tv_tipo_lugar.setVisibility(View.INVISIBLE);*/
+            Toast.makeText(InformacionPersonal.this, "No existe información disponible", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -83,41 +156,41 @@ public class InformacionPersonal extends AppCompatActivity {
             }
         });
         String soli = solicitud.toString();
-        //¿Toast.makeText(Login.this,solicitud.getMethod()+" --- "+URL+" --- " +soli, Toast.LENGTH_SHORT).show();
         VolleyRP.addToQueue(solicitud, mRequest, this, volley);
     }
 
     public void manejarDatos(JSONObject datosSolicitud) {
-        //Toast.makeText(Login.this, "Los datos son:"+datosSolicitud.toString(), Toast.LENGTH_SHORT).show();
-
         try {
             String resultado = datosSolicitud.getString("resultado");
             if (resultado.equals("CC")) {
 
                 JSONObject datosLogin = new JSONObject(datosSolicitud.getString("datos"));
-                String idUsuario = datosLogin.getString("ID_USUARIO");
                 String nombre = datosLogin.getString("PRIMER_NOMBRE_USUARIO");
                 String apellido = datosLogin.getString("PRIMER_APELLIDO_USUARIO");
                 String correo = datosLogin.getString("CORREO");
-                String contraseña = datosLogin.getString("PASSWORD");
                 String fechaNacimeinto = datosLogin.getString("FECHA_NACIMIENTO");
-                String idUbicacion = datosLogin.getString("ID_UBICACION");
+                String pais = datosLogin.getString("CIUDAD");
+                String ciudad = datosLogin.getString("PAIS");
+                //String idUbicacion = datosLogin.getString("ID_UBICACION");
+                ll_info.setVisibility(View.VISIBLE);
+                tv_btn_actualizardatos.setVisibility(View.VISIBLE);
 
                 tv_informacionPersonal_nombre.setText(nombre);
                 tv_informacionPersonal_apellido.setText(apellido);
                 tv_informacionPersonal_correo.setText(correo);
                 tv_informacionPersonal_contraseña.setText("**********");
                 tv_informacionPersonal_fecha_nacimiento.setText(fechaNacimeinto);
-
-                solicitudUbicacioJASON(ipUbicacion+idUbicacion);
-
+                tv_informacionPersonal_pais.setText(pais);
+                tv_informacionPersonal_ciudad.setText(ciudad);
+            }else{
+                Toast.makeText(InformacionPersonal.this, "Error al cargar los datos", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
+            Toast.makeText(InformacionPersonal.this, "Error al cargar los datos", Toast.LENGTH_SHORT).show();
         }
-
     }
 
-
+/*
     public void solicitudUbicacioJASON(String URL) {
         final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -152,6 +225,77 @@ public class InformacionPersonal extends AppCompatActivity {
         } catch (JSONException e) {
         }
 
+    }
+*/
+
+    /******************************************************************************************************************/
+
+    private void verificarActualizacionDatos(String correoUser, String dato, int tipo) {
+        if(true){
+            verificarActualizacion(correoUser, dato, tipo);
+        }
+    }
+    // ?nombre=a&apellido=b&correo=c&password=123&fecha=1995-03-29&pais=ecua&ciudad=quito
+
+    public void verificarActualizacion(String correoUser, String dato, int tipo) {
+        String consulta="";
+        if(tipo ==1){
+            consulta="actualizar_nombreUsuario.php?correo="+correoUser+"&nombre="+dato;
+        }
+        if(tipo ==2){
+            consulta="actualizar_apellidoUsuario.php?correo="+correoUser+"&apellido="+dato;
+        }
+        if(tipo ==3){
+            consulta="actualizar_passwordUsuario.php?correo="+correoUser+"&contraseña="+dato;
+        }
+
+        //Toast.makeText(Singup.this, ip + consulta, Toast.LENGTH_SHORT).show();
+        solicitudActualizacionJASON(ipActualizar + consulta, tipo);
+    }
+
+    //Capturar datos del JSon
+    public void solicitudActualizacionJASON(String URL, int tipo) {
+        final int num = tipo;
+        final JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject datosSolicitud) {
+                try {
+                    verificarRegistro(datosSolicitud, num);
+                } catch (JSONException e) {
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(InformacionPersonal.this, "Ocurrio un error, conprueba tu conexion a internet", Toast.LENGTH_SHORT).show();
+            }
+        });
+        VolleyRP.addToQueue(solicitud, mRequest, this, volley);
+    }
+
+    //Verifica datos capturados
+    public void verificarRegistro(JSONObject datosSolicitud, int tipo) throws JSONException {
+        try {
+            String resultado = datosSolicitud.getString("resultado");
+            Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
+
+            if(tipo==1){
+                et_new_info_nombre.setText("");
+
+            }
+            if(tipo==2){
+                et_new_info_apellido.setText("");
+            }
+            if(tipo==3){
+                et_new_info_contraseña.setText("");
+            }
+
+            mostrarDatosUsuario(ipUsuario+correoUsuario);
+
+        } catch (JSONException e) {
+            String resultado = datosSolicitud.getString("resultado");
+            Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
