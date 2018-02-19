@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity {
                     verificarLogin(et_correo.getText().toString().toLowerCase(), passwordUsuario);
 
                 }else {
-                    Toast.makeText(Login.this, "Ingrese la Contraseña ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Ingrese la Contraseña", Toast.LENGTH_SHORT).show();
                 }
             }
         });
