@@ -108,7 +108,7 @@ public class Login extends AppCompatActivity {
                 //Toast.makeText(Login.this, " "+password+" --> "+passwordUsuario, Toast.LENGTH_SHORT).show();
 
                 if (correo.equals(correoUsuario) && password.equals(passwordUsuario)) {
-                    Toast.makeText(this, "Usuario y contraseña correctos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Usuario y contraseña", Toast.LENGTH_SHORT).show();
                     //Intent intentInicio = new Intent(Login.this, Ubicacion.class);
                     Intent intentInicio = new Intent(Login.this, Inicio.class);
                     intentInicio.putExtra("correoUsuario", correoUsuario);
