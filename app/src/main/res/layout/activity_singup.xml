@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ev.jonathan.emprendeelvieajeev.Signup">
+    tools:context="com.ev.jonathan.emprendeelvieajeev.Singup">
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,10 +36,10 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/et_regContraseña"
+        android:id="@+id/et_regContraseÃ±a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Contraseña"
+        android:hint="ContraseÃ±a"
         android:inputType="textPassword"
         />
 
@@ -55,7 +55,7 @@
         android:id="@+id/et_regPais"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="País"
+        android:hint="PaÃ­s"
         android:inputType="textAutoCorrect|textAutoComplete|textPersonName" />
 
     <EditText
