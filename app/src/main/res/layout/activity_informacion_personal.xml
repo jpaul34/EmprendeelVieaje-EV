@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ev.jonathan.emprendeelviajebeta.InformacionPersonal">
+    tools:context="com.ev.jonathan.emprendeelvieajeev.InformacionPersonal">
 
     <TextView
         android:id="@+id/tv_informacionPersonal"
