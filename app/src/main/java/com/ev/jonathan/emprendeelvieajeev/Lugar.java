@@ -42,8 +42,8 @@ public class Lugar {
 
     @Override
     public String toString() {
-        return  "<p align=\"justify\"><br><b>&nbsp;Nombre:</b> " + nombre_lugar +
-                "<br><b>&nbsp;Tipo de Lugar:</b> " + tipo +
+        return  "<p align=\"justify\"><br><b>&nbsp;Tipo de lugar:</b> " + tipo +
+                "<br><b>&nbsp;Nombre de lugar :</b> " + nombre_lugar +
                 "<br><b>&nbsp;Informacion:</b> <br>&nbsp;" + informacion +"<br></p>";
     }
 }
