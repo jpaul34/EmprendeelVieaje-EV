@@ -41,7 +41,7 @@ public class Singup extends AppCompatActivity {
         et_nombre = (EditText) findViewById(R.id.et_regNombre);
         et_apellido = (EditText) findViewById(R.id.et_regApellido);
         et_correo = (EditText) findViewById(R.id.et_regCorreo);
-        et_password = (EditText) findViewById(R.id.et_regContraseña);
+        et_password = (EditText) findViewById(R.id.et_regContraseÃ);
         et_fecha = (EditText) findViewById(R.id.et_regFechaNacimiento);
         et_pais = (EditText) findViewById(R.id.et_regPais);
         et_ciudad = (EditText) findViewById(R.id.et_regCiudad);
